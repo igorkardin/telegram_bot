@@ -40,7 +40,10 @@ class CalculateProcessor(
                 return
             }
 
-            val result = number + 2
+            val result: Int = if (number == 2) {
+                0
+            }else
+                number + 2
             bot.reply(message, "Ответ $result")
             state = State.OPEN
         }
