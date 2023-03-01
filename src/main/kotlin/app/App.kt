@@ -1,6 +1,7 @@
 package app
 
 import app.processors.CalculateProcessor
+import app.processors.PokaProcessor
 import app.processors.PrivetProcessor
 import app.processors.StartProcessor
 import dev.inmo.tgbotapi.bot.ktor.telegramBot
@@ -28,13 +29,14 @@ suspend fun main() {
         val start = StartProcessor(bot)
         val calculator = CalculateProcessor(bot)
         val privet = PrivetProcessor(bot)
+        val poka = PokaProcessor(bot)
 
         val commandProcessors = listOf(start, calculator)
         commandProcessors.forEach { processor ->
             onCommand(processor.commandName, requireOnlyCommandInMessage = true) { processor.onCommand(it) }
         }
 
-        val messageProcessor = listOf(privet, calculator)
+        val messageProcessor = listOf(privet, calculator, poka)
         messageProcessor.forEach { processor -> onContentMessage { processor.onMessage(it) } }
 
         println(me)
